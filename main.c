@@ -17,5 +17,4 @@ struct {
     struct date dob;
     struct date deposit;
     struct date withdraw;
-    
-}
+}add, upd, check, rem, transaction;
