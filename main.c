@@ -75,5 +75,31 @@ void main()
 
 void menu() 
 {
+    int choice;
+    printf("\033c");
+    system("clear");
+    printf("\n");
+    printf("\n\n\t\t\t CUSTOMER ACCOUNT BANKING MANAGEMENT");
+    printf("\n\n\n\t\t MAIN MENU");
+    printf("\n\n\t\t 1. Create new account \n\t 2. Update information of existing account \n\t 3. Transactions \n\t 4. Account details \n\t 5. Delete account \n\t 6. Customer's list \n\t 7. Exit \n\n\n\n\t\t Enter your choice: ");
+    scanf("%d", &choice);
 
+    switch(choice)
+    {
+        case 1: new_acc();
+        break;
+        case 2: edit();
+        break;
+        case 3: transact();
+        break;
+        case 4: see();
+        break;
+        case 5: erase();
+        break;
+        case 6: view_list();
+        break;
+        case 7: closed();
+        break;
+    }
 }
+
