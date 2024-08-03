@@ -103,3 +103,16 @@ void menu()
     }
 }
 
+void fordelay(int j)
+{
+    while (sec<j)
+    {
+        if (clock()>stopclock)
+        {
+            stopclock +=1000000;
+            printf(".");
+            fflush(stdout);
+            sec++;
+        }
+    }
+}
