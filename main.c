@@ -116,3 +116,61 @@ void fordelay(int j)
         }
     }
 }
+
+void new_acc()
+{
+    int choice;
+    FILE *ptr;
+    ptr=fopen("record.dat","a+");
+    account_no :
+    system("clear");
+    printf("\t\t\t ADD RECORD");
+    printf("\n\n\n Enter today's date (mm/dd/yyyy): ");
+    scanf("%d%d%d", &add.deposit.month,&add.deposit.day, &add.deposit.year);
+    printf("Enter the account number: ");
+    while(fscanf(ptr, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", &add.acc_no, add.name, &add.dob.month, &add.dob.day, &add.dob.year, &add.age, add.address, add.citizenship, &add.phone, add.acc_type, &add.amt, &add.deposit.month, &add.deposit.day, &add.deposit.year) != EOF)
+    {
+        if(check.acc_no==add.acc_no)
+        {
+            printf("Account no already in use");
+            goto account_no;
+        }
+    }
+    add.acc_no = check.acc_no;
+    printf("\n Name: ");
+    scanf("%s", add.name);
+    printf("\n Birthday (mm/dd/yyyy): ");
+    scanf("%d/%d/%d", &add.dob.month, &add.dob.day, &add.dob.year);
+    printf("\n Age: ");
+    scanf("%d", &add.age);
+    printf("\n Home address: ");
+    scanf("%s", add.address);
+    printf("\n Citizenship number: ");
+    scanf("%d", &add.citizenship);
+    printf("\n Phone number: ");
+    scanf("%lf", &add.amt);
+    printf("\n Account Type (Savings/Current/FixedN): ");
+    scanf("%s", add.acc_type);
+
+    fprintf(ptr, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", add.acc_no, add.name, add.dob.month, add.dob.day, add.dob.year, add.age, add.address, add.citizenship, add.phone, add.acc_type, add.amt, add.deposit.month, add.deposit.day, add.deposit.year);
+    fclose(ptr);
+    printf("\n Account created successfully");
+    add_invalid :
+    printf("Enter 1 to try again \n Enter 0 to exit");
+    scanf("%d", &main_exit);
+    system("clear");
+    if(main_exit==1)
+    {
+        menu();
+    }
+    else if(main_exit==0)
+    {
+        closed();
+    }
+    else
+    {
+        printf("\n Invalid choice");
+        goto add_invalid;
+    }
+}
+
