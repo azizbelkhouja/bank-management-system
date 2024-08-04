@@ -514,4 +514,47 @@ void erase()
     }
 }
 
+void view_list()
+{
+    FILE *view;
+    view=fopen("record.dat", "r");
+    int test = 0;
+    system("clear");
+    printf("\n Account no \t Name \t\t Address \t Phone \n");
+    while(fscanf(view, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", &add.acc_no, add.name, &add.dob.month, &add.dob.day, &add.dob.year, &add.age, add.address, add.citizenship, &add.phone, add.acc_type, &add.amt, &add.deposit.month, &add.deposit.day, &add.deposit.year) != EOF)
+    {
+        printf("%s \t %s \t\t %.0lf\t %lf", add.acc_no, add.name, add.address, add.phone);
+        test++;
+    }
+        fclose(view);
+
+        if (test == 0)
+        {
+            system("clear");
+            printf("\nRecord not found");
+        }
+        view_list_invalid :
+        printf("Enter 0 to try again\n Enter 1 for menu\n Enter 2 to exit");
+        scanf("%d", &main_exit);
+        system("clear");
+        if (main_exit == 0)
+        {
+            erase();
+        }
+        else if (main_exit == 1)
+        {
+            menu();
+        }
+        else if (main_exit == 2)
+        {
+            closed();
+        }
+        else 
+        {
+            printf("Invalid choice");
+            goto view_list_invalid;
+        }
+}
+
+
 
