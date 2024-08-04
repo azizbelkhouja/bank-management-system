@@ -7,6 +7,7 @@
 
 int i,j;
 int main_exit;
+FILE *ptr;
 
 void closed();
 void fordelay(int j);
@@ -173,4 +174,94 @@ void new_acc()
         goto add_invalid;
     }
 }
+
+void edit()
+{
+    int choice, test = 0;
+    FILE *old, *newrec;
+
+    old=fopen("record.dat", "w");
+    newrec=fopen("new.dat", "w");
+
+    printf("\n Account no: ");
+    scanf("%d", &upd.acc_no);
+    while(fscanf(ptr, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", &add.acc_no, add.name, &add.dob.month, &add.dob.day, &add.dob.year, &add.age, add.address, add.citizenship, &add.phone, add.acc_type, &add.amt, &add.deposit.month, &add.deposit.day, &add.deposit.year) != EOF)
+    {
+        if (add.acc_no == upd.acc_no)
+        {
+            test=1;
+            printf("\n Information to be changed: \n 1.Address\n 2.Phone\n Choice: ");
+            scanf("%d", &choice);
+            system("clear");
+            if (choice == 1)
+            {
+                printf("Enter new address: ");
+                scanf("%s", upd.address);
+                fprintf(newrec, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", add.acc_no, add.name, add.dob.month, add.dob.day, add.dob.year, add.age, upd.address, add.citizenship, add.phone, add.acc_type, add.amt, add.deposit.month, add.deposit.day, add.deposit.year);
+                system("clear");
+                printf("Changes saved :)");
+            }
+            else if (choice == 2)
+            {
+                printf("Enter new phone number: ");
+                scanf("%lf", upd.phone);
+                fprintf(newrec, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", add.acc_no, add.name, add.dob.month, add.dob.day, add.dob.year, add.age, upd.address, add.citizenship, upd.phone, add.acc_type, add.amt, add.deposit.month, add.deposit.day, add.deposit.year);
+                system("clear");
+                printf("Changes saved ;)");
+            }
+            else
+            {
+                fprintf(newrec, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", add.acc_no, add.name, add.dob.month, add.dob.day, add.dob.year, add.age, upd.address, add.citizenship, add.phone, add.acc_type, add.amt, add.deposit.month, add.deposit.day, add.deposit.year);
+
+            }
+        }
+        fclose(old);
+        fclose(newrec);
+        remove("record.dat");
+        rename("new.dat", "record.dat");
+
+        if (test != 1)
+        {
+            system("clear");
+            printf("\n record not found :(");
+            edit_invalid :
+            printf("Enter 0 to try again \n Enter 1 for menu \n Enter 2 to exit");
+            scanf("%d", &main_exit);
+            system("clear");
+            if (main_exit==0)
+            {
+                edit();
+            }
+            else if(main_exit==1)
+            {
+                menu();
+            }
+            else if(main_exit==2)
+            {
+                closed();
+            }
+            else
+            {
+                printf("\n Invalid choice");
+                goto edit_invalid;
+            }
+        }
+        else 
+        {
+            printf("Enter 1 for menu \n Enter 0 to exit");
+            scanf("%d", &main_exit);
+            system("clear");
+            if(main_exit==1)
+            {
+                menu();
+            }
+            else
+            {
+                closed();
+            }
+        }
+    }
+}
+
+
 
