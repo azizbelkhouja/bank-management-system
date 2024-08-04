@@ -556,5 +556,9 @@ void view_list()
         }
 }
 
-
+void closed()
+{
+    system("clear");
+    printf("\n\n\n Thank you and Goodbye");
+}
 
