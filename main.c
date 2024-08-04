@@ -260,6 +260,97 @@ void edit()
                 closed();
             }
         }
+    } 
+}
+
+void transact()
+{
+    int choice, test=0;
+    FILE *old, *newrec;
+
+    old = fopen("record.dat", "r");
+    newrec = fopen("new.dat", "w");
+    printf("Account no: ");
+    scanf("%d", &transaction.acc_no);
+
+    while(fscanf(ptr, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", &add.acc_no, add.name, &add.dob.month, &add.dob.day, &add.dob.year, &add.age, add.address, add.citizenship, &add.phone, add.acc_type, &add.amt, &add.deposit.month, &add.deposit.day, &add.deposit.year) != EOF)
+    {
+        if(add.acc_no == transaction.acc_no)
+        {
+            test = 1;
+            if(strcmp(add.acc_type, "fixed") == 0)
+            {
+                printf("Accound Fixed: You cannot deposit or withdraw");
+                system("clear");
+                menu();
+            }
+            printf("\n\n 1. Deposit\n 2. Withdraw\n Choice: ");
+            scanf("%d", &choice);
+            if (choice == 1)
+            {
+                printf("Amount to deposit: ");
+                scanf("%f", &transaction.amt);
+                add.amt += transaction.amt;
+                fprintf(newrec, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", add.acc_no, add.name, add.dob.month, add.dob.day, add.dob.year, add.age, upd.address, add.citizenship, add.phone, add.acc_type, add.amt, add.deposit.month, add.deposit.day, add.deposit.year);
+                printf("\n\n Deposited successfully :)");
+            }
+            else if (choice == 2)
+            {
+                printf("Amount to withdraw: ");
+                scanf("%f", transaction.amt);
+                add.amt -= transaction.amt;
+                fprintf(newrec, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", add.acc_no, add.name, add.dob.month, add.dob.day, add.dob.year, add.age, upd.address, add.citizenship, add.phone, add.acc_type, add.amt, add.deposit.month, add.deposit.day, add.deposit.year);
+                printf("\n\n Withdraw done successfully :)");
+            }
+            else 
+            {
+                fprintf(newrec, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", add.acc_no, add.name, add.dob.month, add.dob.day, add.dob.year, add.age, upd.address, add.citizenship, add.phone, add.acc_type, add.amt, add.deposit.month, add.deposit.day, add.deposit.year);
+            }
+        }
+        fclose(old);
+        fclose(newrec);
+        remove("record.dat");
+        rename("new.dat", "record.dat");
+
+        if (test != 1)
+        {
+            printf("\n\n Record not found !");
+            transact_invalid : 
+            printf("\n\n\n Enter 0 to try again\nEnter 1 for menu\nEnter 2 to exit");
+            scanf("%d", &main_exit);
+            system("clear");
+            if (main_exit == 0)
+            {
+                transact();
+            }
+            else if (main_exit == 1)
+            {
+                menu();
+            }
+            else if (main_exit == 2)
+            {
+                closed();
+            }
+            else 
+            {
+                printf("Invalid choice");
+                goto transact_invalid;
+            }
+        }
+        else 
+        {
+            printf("\n\n\n Enter 0 for menu\nEnter 1 to exit");
+            scanf("%d", &main_exit);
+            system("clear");
+            if (main_exit == 0)
+            {
+                menu();
+            }
+            else
+            {
+                closed();
+            }
+        }
     }
 }
 
