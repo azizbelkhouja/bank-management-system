@@ -185,7 +185,7 @@ void edit()
 
     printf("\n Account no: ");
     scanf("%d", &upd.acc_no);
-    while(fscanf(ptr, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", &add.acc_no, add.name, &add.dob.month, &add.dob.day, &add.dob.year, &add.age, add.address, add.citizenship, &add.phone, add.acc_type, &add.amt, &add.deposit.month, &add.deposit.day, &add.deposit.year) != EOF)
+    while(fscanf(old, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", &add.acc_no, add.name, &add.dob.month, &add.dob.day, &add.dob.year, &add.age, add.address, add.citizenship, &add.phone, add.acc_type, &add.amt, &add.deposit.month, &add.deposit.day, &add.deposit.year) != EOF)
     {
         if (add.acc_no == upd.acc_no)
         {
@@ -273,7 +273,7 @@ void transact()
     printf("Account no: ");
     scanf("%d", &transaction.acc_no);
 
-    while(fscanf(ptr, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", &add.acc_no, add.name, &add.dob.month, &add.dob.day, &add.dob.year, &add.age, add.address, add.citizenship, &add.phone, add.acc_type, &add.amt, &add.deposit.month, &add.deposit.day, &add.deposit.year) != EOF)
+    while(fscanf(old, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", &add.acc_no, add.name, &add.dob.month, &add.dob.day, &add.dob.year, &add.age, add.address, add.citizenship, &add.phone, add.acc_type, &add.amt, &add.deposit.month, &add.deposit.day, &add.deposit.year) != EOF)
     {
         if(add.acc_no == transaction.acc_no)
         {
@@ -428,6 +428,74 @@ void see()
         {
             printf("Invalid choice");
             goto see_invalid;
+        }
+    }
+    else 
+    {
+        printf("\n\n\n Enter 0 for menu\nEnter 1 to exit");
+        scanf("%d", &main_exit);
+        system("clear");
+        if (main_exit == 0)
+        {
+            menu();
+        }
+        else
+        {
+            closed();
+        }
+    }
+}
+
+void erase()
+{
+    FILE *old, *newrec;
+    int test = 0;
+    old=fopen("record.dat", "r");
+    newrec=fopen("new.dat", "w");
+
+    printf("Account no to delete: ");
+    scanf("%d", &rem.acc_no);
+
+    while(fscanf(old, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", &add.acc_no, add.name, &add.dob.month, &add.dob.day, &add.dob.year, &add.age, add.address, add.citizenship, &add.phone, add.acc_type, &add.amt, &add.deposit.month, &add.deposit.day, &add.deposit.year) != EOF)
+    {
+        if (add.acc_no != rem.acc_no)
+        {
+            fprintf(newrec, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", &add.acc_no, add.name, &add.dob.month, &add.dob.day, &add.dob.year, &add.age, add.address, add.citizenship, &add.phone, add.acc_type, &add.amt, &add.deposit.month, &add.deposit.day, &add.deposit.year);
+        }
+        else 
+        {
+            test++;
+            printf("\n Record deleted successfully");
+        }
+    }
+    fclose(old);
+    fclose(newrec);
+    remove("record.dat");
+    rename("new.dat", "record.dat");
+
+    if (test == 0)
+    {
+        printf("\n Record not found");
+        erase_invalid :
+        printf("Enter 0 to try again\n Enter 1 for menu\n Enter 2 to exit");
+        scanf("%d", &main_exit);
+        system("clear");
+        if (main_exit == 0)
+        {
+            erase();
+        }
+        else if (main_exit == 1)
+        {
+            menu();
+        }
+        else if (main_exit == 2)
+        {
+            closed();
+        }
+        else 
+        {
+            printf("Invalid choice");
+            goto erase_invalid;
         }
     }
     else 
