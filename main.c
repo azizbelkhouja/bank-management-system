@@ -354,5 +354,96 @@ void transact()
     }
 }
 
+void see()
+{
+    int test=0, rate;
+    int choice;
+    float time;
+    float intrst;
+
+    ptr=fopen("record.dat", "r");
+    printf("Check by: \n1.Account no\n2.Name\nChoice: ");
+    scanf("%d", &choice);
+    if (choice == 1)
+    {
+        printf("Account number: ");
+        scanf("%d", &check.acc_no);
+        while(fscanf(ptr, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", &add.acc_no, add.name, &add.dob.month, &add.dob.day, &add.dob.year, &add.age, add.address, add.citizenship, &add.phone, add.acc_type, &add.amt, &add.deposit.month, &add.deposit.day, &add.deposit.year) != EOF)
+        {
+            if (add.acc_no == check.acc_no)
+            {
+                system("clear");
+                test = 1;
+                printf("\nAccount no %d\nName: %s\nDOB: %d/%d/%d\n Age: %d\nAddress: %s\n Citizenship no: %d\n Phone number: %.0f\n Type of account: %s\n Amount deposited: %.2f €\n Date of deposit: %d/%d/%d", add.acc_no, add.name, add.dob.month, add.dob.day, add.dob.year, add.age, add.address, add.citizenship, add.phone, add.acc_type, add.amt, add.deposit.month, add.deposit.day, add.deposit.year);
+
+                if (strcmp(add.acc_type, "fixed") == 0)
+                {
+                    printf("\n\n You will get no interest fees");
+                }
+            }
+        }
+    }
+    else if (choice == 2)
+    {
+        printf("Name: ");
+        scanf("%s", check.name);
+        while(fscanf(ptr, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d \n", &add.acc_no, add.name, &add.dob.month, &add.dob.day, &add.dob.year, &add.age, add.address, add.citizenship, &add.phone, add.acc_type, &add.amt, &add.deposit.month, &add.deposit.day, &add.deposit.year) != EOF)
+        {
+            if (strcmp(add.name, check.name) == 0)
+            {
+                system("clear");
+                test = 1;
+                printf("\nAccount no %d\nName: %s\nDOB: %d/%d/%d\n Age: %d\nAddress: %s\n Citizenship no: %d\n Phone number: %.0f\n Type of account: %s\n Amount deposited: %.2f €\n Date of deposit: %d/%d/%d", add.acc_no, add.name, add.dob.month, add.dob.day, add.dob.year, add.age, add.address, add.citizenship, add.phone, add.acc_type, add.amt, add.deposit.month, add.deposit.day, add.deposit.year);
+
+                if (strcmp(add.acc_type, "fixed") == 0)
+                {
+                    printf("\n\n You will get no interest fees");
+                }
+
+            }
+        }
+    }
+    fclose(ptr);
+    if (test != 1)
+    {
+        system("clear");
+        printf("Record not found");
+        see_invalid :
+        printf("Enter 0 to try again\n Enter 1 for menu\n Enter 2 to exit");
+        scanf("%d", &main_exit);
+        system("clear");
+        if (main_exit == 0)
+        {
+            see();
+        }
+        else if (main_exit == 1)
+        {
+            menu();
+        }
+        else if (main_exit == 2)
+        {
+            closed();
+        }
+        else 
+        {
+            printf("Invalid choice");
+            goto see_invalid;
+        }
+    }
+    else 
+    {
+        printf("\n\n\n Enter 0 for menu\nEnter 1 to exit");
+        scanf("%d", &main_exit);
+        system("clear");
+        if (main_exit == 0)
+        {
+            menu();
+        }
+        else
+        {
+            closed();
+        }
+    }
+}
 
 
