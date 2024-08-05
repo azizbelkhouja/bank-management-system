@@ -390,7 +390,9 @@ void erase() {
         return;
     }
 
-    printf("\n Enter account no to delete: ");
+    system("cls");
+
+    printf("\nEnter the number of the account to delete: ");
     scanf("%d", &rem.acc_no);
 
     while (fscanf(old, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d\n",
@@ -413,8 +415,8 @@ void erase() {
 
     if (test != 1) {
         
-        printf("Account number not found :(\n");
-        printf("Enter 0 to try again \nEnter 1 for menu \nEnter 2 to exit: ");
+        printf("\nAccount number not found :(\n");
+        printf("\nEnter 0 to try again\nEnter 1 for menu\nEnter 2 to exit\nChoice:  ");
         scanf("%d", &main_exit);
         if (main_exit == 0) {
             erase();
@@ -424,8 +426,8 @@ void erase() {
             closed();
         }
     } else {
-        printf("Account deleted successfully\n");
-        printf("Enter 1 to delete another account \nEnter 0 for menu: ");
+        printf("\nAccount deleted successfully\n");
+        printf("\nEnter 1 to delete another account\nEnter 0 for menu\nChoice:  ");
         scanf("%d", &main_exit);
         if (main_exit == 1) {
             erase();
