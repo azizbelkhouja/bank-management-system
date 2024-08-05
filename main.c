@@ -444,7 +444,10 @@ void view_list() {
         return;
     }
 
-    printf("\nList of accounts:\n");
+    system("cls");
+
+    printf("\n********** All Accounts **********\n");
+
     while (fscanf(ptr, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d\n",
                   &add.acc_no, add.name, &add.dob.month, &add.dob.day, &add.dob.year,
                   &add.age, add.address, add.citizenship, &add.phone, add.acc_type,
@@ -456,7 +459,7 @@ void view_list() {
     }
     fclose(ptr);
 
-    printf("Enter 0 for menu: ");
+    printf("Enter 0 for menu ");
     scanf("%d", &main_exit);
     if (main_exit == 0) {
         menu();
@@ -464,6 +467,6 @@ void view_list() {
 }
 
 void closed() {
-    printf("Thank you for using the Bank Management System. Goodbye!\n");
+    printf("Goodbye!\n");
     exit(0);
 }
