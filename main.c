@@ -340,7 +340,9 @@ void see()
         return;
     }
 
-    printf("\n Account no: ");
+    system("cls");
+
+    printf("\nAccount no: ");
     scanf("%d", &check.acc_no);
 
     while (fscanf(ptr, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d\n",
@@ -349,6 +351,7 @@ void see()
                   &add.amt, &add.deposit.month, &add.deposit.day, &add.deposit.year) != EOF) {
         if (add.acc_no == check.acc_no) {
             test = 1;
+            printf("\n********** Account Details **********\n");
             printf("\nAccount number: %d\n", add.acc_no);
             printf("Name: %s\n", add.name);
             printf("Date of Birth: %02d/%02d/%d\n", add.dob.month, add.dob.day, add.dob.year);
@@ -369,7 +372,7 @@ void see()
         printf("Account number not found :(\n");
     }
 
-    printf("Enter 1 to view another account \nEnter 0 for menu: ");
+    printf("\nEnter 1 to view another account\nEnter 0 for menu\nChoice: ");
     scanf("%d", &main_exit);
     if (main_exit == 1) {
         see();
