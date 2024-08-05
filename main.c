@@ -3,7 +3,6 @@
 #include <string.h>
 #include <unistd.h>
 #include <ctype.h>
-#include <time.h>
 
 int main_exit;
 FILE *ptr;
@@ -31,7 +30,6 @@ struct {
 } add, upd, check, rem, transaction;
 
 unsigned int sec = 0;
-clock_t stopclock = CLOCKS_PER_SEC;
 
 int main() {
     char pass[15], password[15] = "admin";
@@ -41,15 +39,15 @@ int main() {
     printf("\033c");
 
     if (strcmp(pass, password) == 0) {
-        printf("Logged in, Loading...\n");
         menu();
     } else {
         printf("\033c");
         printf("Wrong Password\n");
-        printf("Enter 1 to try again \nEnter 0 to exit: ");
+        printf("Enter 1 to try again\nEnter 0 to exit\nChoice:  ");
         scanf("%d", &main_exit);
 
         if (main_exit == 1) {
+            system("cls");
             main();
         } else if (main_exit == 0) {
             closed();
@@ -62,6 +60,8 @@ int main() {
 void menu() {
     int choice;
     
+    system("cls");
+
     printf("\n********** Bank Management System **********\n");
     printf("1. Create Account\n");
     printf("2. Edit Account\n");
@@ -96,12 +96,15 @@ void new_acc() {
         return;
     }
 
-    
-    printf("\t\t\t ADD RECORD");
-    printf("\n\n\n Enter today's date (mm/dd/yyyy): ");
+    system("cls");
+
+    printf("\n********** New Account **********\n");
+    printf("Enter today's date (mm/dd/yyyy): ");
     scanf("%d/%d/%d", &add.deposit.month, &add.deposit.day, &add.deposit.year);
 
     printf("Enter the account number: ");
+    scanf("%d", &check.acc_no);
+
     while (fscanf(ptr, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d\n", 
                    &add.acc_no, add.name, &add.dob.month, &add.dob.day, &add.dob.year,
                    &add.age, add.address, add.citizenship, &add.phone, add.acc_type,
@@ -115,19 +118,19 @@ void new_acc() {
     }
 
     add.acc_no = check.acc_no;
-    printf("\n Name: ");
+    printf("Name: ");
     scanf("%s", add.name);
-    printf("\n Birthday (mm/dd/yyyy): ");
+    printf("Birthday (mm/dd/yyyy): ");
     scanf("%d/%d/%d", &add.dob.month, &add.dob.day, &add.dob.year);
-    printf("\n Age: ");
+    printf("Age: ");
     scanf("%d", &add.age);
-    printf("\n Home address: ");
+    printf("Home address: ");
     scanf("%s", add.address);
-    printf("\n Citizenship number: ");
-    scanf("%s", add.citizenship);  // Corrected to %s
-    printf("\n Phone number: ");
+    printf("Citizenship number: ");
+    scanf("%s", add.citizenship);
+    printf("Phone number: ");
     scanf("%lf", &add.phone);
-    printf("\n Account Type (Savings/Current/FixedN): ");
+    printf("Account Type (Savings/Current/FixedN): ");
     scanf("%s", add.acc_type);
 
     fprintf(ptr, "%d %s %d/%d/%d %d %s %s %.0lf %s %.2f %d/%d/%d\n",
@@ -136,9 +139,9 @@ void new_acc() {
             add.amt, add.deposit.month, add.deposit.day, add.deposit.year);
 
     fclose(ptr);
-    printf("\n Account created successfully\n");
+    printf("\nAccount created successfully\n");
 
-    printf("Enter 1 to try again \nEnter 0 to exit: ");
+    printf("\nEnter 1 to try again\nEnter 0 to exit\nChoice: ");
     scanf("%d", &main_exit);
     
     if (main_exit == 1) {
