@@ -163,7 +163,9 @@ void edit() {
         return;
     }
 
-    printf("\n Account no: ");
+    system("cls");
+
+    printf("Account no: ");
     scanf("%d", &upd.acc_no);
 
     while (fscanf(old, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d\n",
@@ -172,10 +174,11 @@ void edit() {
                   &add.amt, &add.deposit.month, &add.deposit.day, &add.deposit.year) != EOF) {
         if (add.acc_no == upd.acc_no) {
             test = 1;
-            printf("\n Information to be changed: \n 1.Address\n 2.Phone\n Choice: ");
+            printf("\nChange: \n 1.Address\n 2.Phone\nChoice: ");
             scanf("%d", &choice);
             
             if (choice == 1) {
+                system("cls");
                 printf("Enter new address: ");
                 scanf("%s", upd.address);
                 fprintf(newrec, "%d %s %d/%d/%d %d %s %s %.0lf %s %.2f %d/%d/%d\n",
@@ -185,6 +188,7 @@ void edit() {
                 
                 printf("Changes saved :)\n");
             } else if (choice == 2) {
+                system("cls");
                 printf("Enter new phone number: ");
                 scanf("%lf", &upd.phone);
                 fprintf(newrec, "%d %s %d/%d/%d %d %s %s %.0lf %s %.2f %d/%d/%d\n",
@@ -213,8 +217,8 @@ void edit() {
 
     if (test != 1) {
         
-        printf("\n Record not found :(\n");
-        printf("Enter 0 to try again \nEnter 1 for menu \nEnter 2 to exit: ");
+        printf("\nRecord not found :(\n");
+        printf("\nEnter 0 to try again \nEnter 1 for menu \nEnter 2 to exit\nChoice: ");
         scanf("%d", &main_exit);
         if (main_exit == 0) {
             edit();
@@ -224,7 +228,7 @@ void edit() {
             closed();
         }
     } else {
-        printf("Enter 1 to continue editing \nEnter 0 for menu: ");
+        printf("\nEnter 1 to continue editing \nEnter 0 for menu\nChoice: ");
         scanf("%d", &main_exit);
         if (main_exit == 1) {
             edit();
@@ -243,7 +247,7 @@ void transact() {
         return;
     }
 
-    printf("\n Account no: ");
+    printf("\nAccount no: ");
     scanf("%d", &transaction.acc_no);
 
     while (fscanf(old, "%d %s %d/%d/%d %d %s %s %lf %s %f %d/%d/%d\n",
@@ -252,7 +256,7 @@ void transact() {
                   &add.amt, &add.deposit.month, &add.deposit.day, &add.deposit.year) != EOF) {
         if (add.acc_no == transaction.acc_no) {
             test = 1;
-            printf("\n Choose:\n 1. Deposit\n 2. Withdraw\n");
+            printf("\nChoose:\n 1. Deposit\n 2. Withdraw\n");
             scanf("%d", &choice);
             if (choice == 1) {
                 printf("Enter amount to deposit: ");
