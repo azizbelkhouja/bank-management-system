@@ -16,11 +16,13 @@ void see();
 void erase();
 void view_list();
 
-struct date {
+struct date
+{
     int day, month, year;
 };
 
-struct {
+struct
+{
     char name[60], address[60], citizenship[15], acc_type[10];
     int acc_no, age;
     double phone;
@@ -31,7 +33,8 @@ struct {
 
 unsigned int sec = 0;
 
-int main() {
+int main()
+{
     char pass[15], password[15] = "admin";
     printf("Enter password to login: ");
     printf("\033[8m");
@@ -57,7 +60,8 @@ int main() {
     return 0;
 }
 
-void menu() {
+void menu()
+{
     int choice;
     
     system("cls");
@@ -88,7 +92,8 @@ void menu() {
     }
 }
 
-void new_acc() {
+void new_acc()
+{
     int choice;
     FILE *ptr = fopen("record.dat", "a+");
     if (!ptr) {
@@ -154,7 +159,8 @@ void new_acc() {
     }
 }
 
-void edit() {
+void edit()
+{
     int choice, test = 0;
     FILE *old = fopen("record.dat", "r");
     FILE *newrec = fopen("new.dat", "w");
@@ -238,7 +244,8 @@ void edit() {
     }
 }
 
-void transact() {
+void transact()
+{
     int choice, test = 0;
     FILE *old = fopen("record.dat", "r");
     FILE *newrec = fopen("new.dat", "w");
@@ -246,6 +253,8 @@ void transact() {
         perror("Unable to open file");
         return;
     }
+
+    system("cls");
 
     printf("\nAccount no: ");
     scanf("%d", &transaction.acc_no);
@@ -256,9 +265,10 @@ void transact() {
                   &add.amt, &add.deposit.month, &add.deposit.day, &add.deposit.year) != EOF) {
         if (add.acc_no == transaction.acc_no) {
             test = 1;
-            printf("\nChoose:\n 1. Deposit\n 2. Withdraw\n");
+            printf("\nChoose:\n 1. Deposit\n 2. Withdraw\nChoice: ");
             scanf("%d", &choice);
             if (choice == 1) {
+                system("cls");
                 printf("Enter amount to deposit: ");
                 scanf("%f", &transaction.amt);
                 add.amt += transaction.amt;
@@ -268,6 +278,7 @@ void transact() {
                         add.amt, add.deposit.month, add.deposit.day, add.deposit.year);
                 printf("Amount deposited successfully\n");
             } else if (choice == 2) {
+                system("cls");
                 printf("Enter amount to withdraw: ");
                 scanf("%f", &transaction.amt);
                 if (transaction.amt > add.amt) {
@@ -299,9 +310,8 @@ void transact() {
     rename("new.dat", "record.dat");
 
     if (test != 1) {
-        
         printf("Account number not found :(\n");
-        printf("Enter 0 to try again \nEnter 1 for menu \nEnter 2 to exit: ");
+        printf("\nEnter 0 to try again\nEnter 1 for menu\nEnter 2 to exit\nChoice: ");
         scanf("%d", &main_exit);
         if (main_exit == 0) {
             transact();
@@ -311,7 +321,7 @@ void transact() {
             closed();
         }
     } else {
-        printf("Enter 1 to continue transactions \nEnter 0 for menu: ");
+        printf("Enter 1 for more transactions\nEnter 0 for menu\nChoice: ");
         scanf("%d", &main_exit);
         if (main_exit == 1) {
             transact();
@@ -321,7 +331,8 @@ void transact() {
     }
 }
 
-void see() {
+void see() 
+{
     int test = 0;
     FILE *ptr = fopen("record.dat", "r");
     if (!ptr) {
